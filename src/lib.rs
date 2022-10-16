@@ -10,8 +10,8 @@ const OPTIONS: &[(&str, &str)] = &[
 // Create a const map to store the template name, its description and the anonymous function to execute
 const TEMPLATES: &[(&str, &str, fn())] = &[
     ("math", "Latex report, template focused on math", math), // Based on @gillescastel & @SirCharlieMars
-    ("ieee", "Basic IEEE template, using pandoc & mardown", ieee),
-    ("apa7tec", "Custom template for TEC papers, using pandoc & mardown", apa7tec), // Provided by
+    ("ieee", "Basic IEEE template, using pandoc & markdown", ieee),
+    ("apa7tec", "Custom template for TEC papers, using pandoc & markdown", apa7tec), // Provided by
                                                                                     // @zSnails
 ];
 
