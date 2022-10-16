@@ -3,7 +3,7 @@ use std::path::Path;
 // Create a const map to store the option name an its description
 const OPTIONS: &[(&str, &str)] = &[
     ("-h, --help", "Display this help message"),
-    ("-l, --help", "Display the available templates"),
+    ("-l, --list", "Display the available templates"),
     ("-v, --version", "Display the version of the program"),
 ];
 
@@ -27,7 +27,8 @@ impl Config {
     pub fn build(args: &[String]) -> Result<Config, &'static str> {
         // Check if the user is asking for the program version
         if args.len() == 2 && (args[1] == "-v" || args[1] == "--version") {
-            println!("Version: {}", env!("CARGO_PKG_VERSION"));
+            println!("Latex Template Handler by @Johanx22x");
+            println!("Version: \x1b[4;34m{}\x1b[0m", env!("CARGO_PKG_VERSION"));
             std::process::exit(0);
         }
 

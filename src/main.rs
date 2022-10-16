@@ -12,7 +12,6 @@ fn main() {
         // If is list, print the list of template available
         // Otherwise, print the error message
         if err == "help" {
-            eprintln!("Help message");
             handle_bad_usage();
             std::process::exit(0);
         } else if err == "list" {
