@@ -3,7 +3,6 @@ use std::env;
 mod config;
 mod templates;
 mod utils;
-mod request;
 mod git;
 
 use config::*;
