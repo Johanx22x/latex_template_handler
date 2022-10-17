@@ -12,35 +12,35 @@ use crate::utils::*;
 /// let path = "path/to/a/directory";
 /// math_template(path);
 /// ```
-///
-/// # Output
-/// ```
-/// path/to/a/directory
-/// ├── .git
-/// ├── images
-/// │   └── logo.png
-/// ├── letterfonts.tex
-/// ├── main.tex
-/// ├── macros.tex 
-/// ├── preamble.tex 
-/// ├── README.md
-/// └── src
-///     └── chap01.tex
-/// ```
 pub fn math(path: &str) {
     // Create the new folder
     let new_path = create_dir_using_stdin(path);
 
     // Create main.tex file
-    create_file(&new_path, "main.tex", "");
+    // Download the main.tex file from the repo 
+    // https://raw.githubusercontent.com/TeXample/templates/master/math/main.tex
+    let main_tex = get_file("https://raw.githubusercontent.com/TeXample/templates/master/math/main.tex");
+    create_file(&new_path, "main.tex", main_tex.as_str());
 
     // Create lib folder 
     create_folder(&new_path, "lib");
 
     // Create .text files inside lib folder 
-    create_file(&new_path, "lib/macros.tex", "");
-    create_file(&new_path, "lib/preamble.tex", "");
-    create_file(&new_path, "lib/letterfonts.tex", "");
+
+    // Download the preamble.tex file 
+    // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/math/preamble.tex
+    let preamble = get_file("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/math/preamble.tex");
+    create_file(&new_path, "lib/preamble.tex", preamble.as_str());
+
+    // Download the macros.tex file 
+    // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/math/macros.tex 
+    let macros = get_file("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/math/macros.tex");
+    create_file(&new_path, "lib/macros.tex", macros.as_str());
+
+    // Download the letterfonts.tex file 
+    // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/math/letterfonts.tex 
+    let letterfonts = get_file("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/math/letterfonts.tex");
+    create_file(&new_path, "lib/letterfonts.tex", letterfonts.as_str());
 
     // Create the images folder
     create_folder(&new_path, "images");
@@ -61,6 +61,12 @@ pub fn math(path: &str) {
     if answers.contains(&git.as_str()) {
         // Initialize a new git repository
         init_git(&new_path);
+
+        // Create a .gitignore file 
+        // Download the .gitignore file from the repo
+        // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/math/.gitignore 
+        let gitignore = get_file("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/math/.gitignore");
+        create_file(&new_path, ".gitignore", gitignore.as_str());
     }
 
     // Ask the user if he wants to create a README.md file 
@@ -69,28 +75,9 @@ pub fn math(path: &str) {
     // Check if the user wants to create a README.md file 
     if answers.contains(&readme.as_str()) {
         // Create a README.md file 
-        create_file(&new_path, "README.md", "# Math Template
-
-This is a template oriented for a math report, based on [@gillescastel](https://github.com/gillescastel/) & [@SirCharlieMars](https://github.com/SirCharlieMars) templates. 
-
-Also can be used for other reports, just change the `main.tex` file and the `lib` folder to customize it.
-
-## Dependencies
-
-A LateX compiler like [vimtex](https://github.com/lervag/vimtex) or [latexmk](https://www.ctan.org/pkg/latexmk/) is required to compile this template.
-
-## How to use it 
-
-1. Configure the `main.tex` file to your needs.
-2. Create and manage your chapters in the `src` folder.
-3. Add your images and figures in the `images` folder.
-4. Customize the `lib` folder to your more specific needs.
-5. Enjoy your report.
-
-## Contributing 
-
-If you want to contribute to this template or the Latex Template Handler project, please visit the [GitHub repository](https://github.com/Johanx22x/latex_template_handler).
-");
+        // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/math/README.md 
+        let readme = get_file("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/math/README.md");
+        create_file(&new_path, "README.md", readme.as_str());
     }
 
     println!("\x1b[34mCreated the new folder at {}\x1b[0m", new_path);
