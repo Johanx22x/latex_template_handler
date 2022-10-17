@@ -19,8 +19,8 @@ pub fn math(path: &str) {
     // Create main.tex file
     // Download the main.tex file from the repo 
     // https://raw.githubusercontent.com/TeXample/templates/master/math/main.tex
-    let main_tex = get_file("https://raw.githubusercontent.com/TeXample/templates/master/math/main.tex");
-    create_file(&new_path, "main.tex", main_tex.as_str());
+    let main = get_file("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/math/main.tex");
+    create_file(&new_path, "main.tex", main.as_str());
 
     // Create lib folder 
     create_folder(&new_path, "lib");
