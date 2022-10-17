@@ -54,23 +54,11 @@ pub fn math(path: &str) {
     // Ask the user if he wants to initialize a git repository
     let git = read_stdin("Do you want to initialize a git repository? (Y/n)".to_string()).trim().to_string();
 
-    // Use an array to store the git answers
-    let answers = ["y", "Y", "yes", "Yes", "YES", ""];
-
-    // Check if the user wants to initialize a git repository
-    if answers.contains(&git.as_str()) {
-        // Initialize a new git repository
-        init_git(&new_path);
-
-        // Create a .gitignore file 
-        // Download the .gitignore file from the repo
-        // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/math/.gitignore 
-        let gitignore = get_file("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/math/.gitignore");
-        create_file(&new_path, ".gitignore", gitignore.as_str());
-    }
-
     // Ask the user if he wants to create a README.md file 
     let readme = read_stdin("Do you want to create a README.md file? (Y/n)".to_string()).trim().to_string();
+
+    // Use an array to store the git answers
+    let answers = ["y", "Y", "yes", "Yes", "YES", ""];
 
     // Check if the user wants to create a README.md file 
     if answers.contains(&readme.as_str()) {
@@ -78,6 +66,18 @@ pub fn math(path: &str) {
         // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/math/README.md 
         let readme = get_file("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/math/README.md");
         create_file(&new_path, "README.md", readme.as_str());
+    }
+
+    // Check if the user wants to initialize a git repository
+    if answers.contains(&git.as_str()) {
+        // Create a .gitignore file 
+        // Download the .gitignore file from the repo
+        // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/math/.gitignore 
+        let gitignore = get_file("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/math/.gitignore");
+        create_file(&new_path, ".gitignore", gitignore.as_str());
+
+        // Initialize a new git repository
+        init_git(&new_path);
     }
 
     println!("\x1b[34mCreated the new folder at {}\x1b[0m", new_path);
