@@ -1,5 +1,6 @@
 use std::io::Write;
 use std::path::Path;
+use http::StatusCode;
 
 /// Read user input and return the input
 ///
@@ -165,4 +166,37 @@ pub fn create_file(path: &str, name: &str, content: &str) {
     file.flush().expect("Failed to close the new file");
 
     println!("\x1b[34mCreated the new file at {}/{}\x1b[0m", path, name);
+}
+
+/// Download a file from a given github raw url 
+///
+/// # Arguments
+/// * `url` - A string slice that holds the url to download the file
+///
+/// # Example
+/// ```
+/// get_file("https://raw.githubusercontent.com/username/repo/main/file");
+/// ```
+/// This will download the file from the given url
+/// and return a `String` containing the content of the file 
+///
+/// # Panics
+/// This function will panic if the file can't be downloaded
+pub fn get_file(url: &str) -> String {
+    // Download the file from the given url
+    let response = reqwest::blocking::get(url).expect("Failed to download the file");
+
+    // Check if the response is successful
+    // If it is, return the content of the file
+    // If it is not, return an error
+    match response.status() {
+        StatusCode::OK => {
+            // Return the content of the file
+            response.text().unwrap()
+        },
+        _ => {
+            eprintln!("\x1b[31mFailed to download the file!\x1b[0m");
+            std::process::exit(1);
+        },
+    }
 }
