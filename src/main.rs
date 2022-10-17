@@ -1,8 +1,32 @@
 use std::env;
 
-use latex_template_handler::*;
+mod config;
+mod templates;
+mod utils;
+mod request;
+mod git;
 
+use config::*;
+use templates::*;
+
+// const map to store the option name an its description
+const OPTIONS: &[(&str, &str)] = &[
+    ("-h, --help", "Display this help message"),
+    ("-l, --list", "Display the available templates"),
+    ("-v, --version", "Display the version of the program"),
+];
+
+// const map to store the template name, its description and the function to execute
+const TEMPLATES: &[(&str, &str, fn(&str))] = &[
+    ("math", "Latex report, template focused on math", math), // Based on @gillescastel & @SirCharlieMars
+    ("ieee", "Basic IEEE template, using pandoc & markdown", ieee),
+    ("apa7tec", "Custom template for TEC papers, using pandoc & markdown", apa7tec), // Provided by
+                                                                                    // @zSnails
+];
+
+/// Main function
 fn main() {
+    // Get the arguments
     let args: Vec<String> = env::args().collect();
 
     // Manage the error here
