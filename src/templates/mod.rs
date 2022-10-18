@@ -107,12 +107,12 @@ pub fn ieee(path: &str) {
     create_folder(&new_path, "lib");
 
     // Download the necessary files from the repo 
-    // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/ieee/lib/bibliography.cls
-    let bibliography = get_file("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/ieee/lib/bibliography.cls");
+    // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/ieee/lib/bibliography.csl
+    let bibliography = get_file("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/ieee/lib/bibliography.csl");
     create_file(&new_path, "lib/bibliography.cls", bibliography.as_str());
 
     // Download the necessary files from the repo 
-    // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/ieee/lib/bibliography.cls
+    // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/ieee/lib/bibliography.bib
     let bibliography = get_file("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/ieee/lib/bibliography.bib");
     create_file(&new_path, "lib/bibliography.bib", bibliography.as_str());
 
