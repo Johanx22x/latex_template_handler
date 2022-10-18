@@ -200,3 +200,42 @@ pub fn get_file(url: &str) -> String {
         },
     }
 }
+
+/// Dowload an image from a given raw github url 
+/// and save it to a given path 
+///
+/// # Arguments
+/// * `url` - A string slice that holds the url to download the image
+/// * `path` - A string slice that holds the path to save the image
+/// * `name` - A string slice that holds the name of the image 
+///
+/// # Example
+/// ```
+/// get_image("https://raw.githubusercontent.com/username/repo/main/image.png", "path/to/a/directory", "image.png");
+/// ```
+/// This will download the image from the given url
+/// and save it to the given path
+///
+/// # Panics
+/// This function will panic if the image can't be downloaded
+/// or if the image can't be saved
+pub fn get_image(url: &str, path: &str, name: &str) {
+    // Download the image from the given url
+    let response = reqwest::blocking::get(url).expect("Failed to download the image");
+
+    // Check if the response is successful
+    // If it is, save the image to the given path
+    // If it is not, return an error
+    match response.status() {
+        StatusCode::OK => {
+            // Save the image to the given path
+            let mut file = std::fs::File::create(format!("{}/{}", path, name)).expect("Failed to create the new file");
+            file.write_all(&response.bytes().unwrap()).expect("Failed to write to the new file");
+            file.flush().expect("Failed to close the new file");
+        },
+        _ => {
+            eprintln!("\x1b[31mFailed to download the image!\x1b[0m");
+            std::process::exit(1);
+        },
+    }
+}

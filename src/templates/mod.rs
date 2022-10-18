@@ -109,7 +109,7 @@ pub fn ieee(path: &str) {
     // Download the necessary files from the repo 
     // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/ieee/lib/bibliography.csl
     let bibliography = get_file("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/ieee/lib/bibliography.csl");
-    create_file(&new_path, "lib/bibliography.cls", bibliography.as_str());
+    create_file(&new_path, "lib/bibliography.csl", bibliography.as_str());
 
     // Download the necessary files from the repo 
     // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/ieee/lib/bibliography.bib
@@ -123,16 +123,14 @@ pub fn ieee(path: &str) {
     // Create the images folder
     create_folder(&new_path, "images");
     // Get an image from the repo and save it to the images folder 
-    let image = get_file("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/ieee/images/markdown.png");
-    create_file(&new_path, "images/markdown.png", image.as_str());
+    get_image("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/ieee/images/markdown.png", &format!("{}/images", new_path), "markdown.png");
 
     // Create the src folder
     create_folder(&new_path, "src");
-    create_file(&format!("{}/src", new_path), "chap01.tex", "");
 
     // Download the 01.md file 
-    // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/ieee/lib/01.md
-    let first = get_file("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/ieee/lib/01.md");
+    // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/ieee/src/01.md
+    let first = get_file("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/ieee/src/01.md");
     create_file(&new_path, "src/01.md", first.as_str());
 
     // Download the Makefile
