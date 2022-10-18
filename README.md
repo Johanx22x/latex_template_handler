@@ -25,7 +25,7 @@ $ cd latex_template_handler
 $ cargo build 
 ```
 
-Now, the binary file can be found in target/debug/latex_template_handler.
+Now, the binary file can be found in `target/debug/latex_template_handler`.
 
 ## Contributing
 
