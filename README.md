@@ -27,6 +27,10 @@ $ cargo build
 
 Now, the binary file can be found in `target/debug/latex_template_handler`.
 
+## Warning
+
+All the templates used in this project are tested and used only in Arch Linux at this moment, probably you'll find some errors in other OS.
+
 ## Contributing
 
 This project is in development, if you want to contribute feel free to do so.
