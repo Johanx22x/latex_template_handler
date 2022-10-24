@@ -19,8 +19,9 @@ const OPTIONS: &[(&str, &str)] = &[
 const TEMPLATES: &[(&str, &str, fn(&str))] = &[
     ("math", "Latex report, template focused on math", math), // Based on @gillescastel & @SirCharlieMars
     ("ieee", "Basic IEEE template, using pandoc & markdown", ieee),
-    ("apa7tec", "Custom template for TEC papers, using pandoc & markdown", apa7tec), // Provided by
-                                                                                    // @zSnails
+    ("ieeetec", "Custo template for TEC paper (IEEE style)", ieee_tec),
+    ("apa7tec", "Custom template for TEC papers (APA style), using pandoc & markdown", apa7tec), // Provided by
+                                                                                                // @zSnails
 ];
 
 /// Main function
