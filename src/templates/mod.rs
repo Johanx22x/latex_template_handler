@@ -184,5 +184,88 @@ pub fn ieee(path: &str) {
 }
 
 pub fn apa7tec(path: &str) {
-    println!("APA7TEC template at {}", path);
+    // Create the new folder 
+    let new_path = create_dir_using_stdin(path);
+
+    // Create the metadata.yaml file
+    // Download the metadata.yaml file from the repo 
+    // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/apa7tec/metadata.yaml
+    let main = get_file("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/apa7tec/metadata.yaml");
+    create_file(&new_path, "metadata.yaml", main.as_str());
+
+    // Create lib folder 
+    create_folder(&new_path, "lib");
+
+    // Download the necessary files from the repo 
+    // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/apa7tec/lib/bibliography.bib
+    let bibliography = get_file("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/apa7tec/lib/bibliography.bib");
+    create_file(&new_path, "lib/bibliography.bib", bibliography.as_str());
+
+    // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/apa7tec/lib/template.tex 
+    let template = get_file("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/apa7tec/lib/apa7tec.cls");
+    create_file(&new_path, "lib/apa7tec.cls", template.as_str());
+
+    // Create the src folder
+    create_folder(&new_path, "src");
+
+    // Download the 01.md file 
+    // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/apa7tec/src/01.md 
+    let first = get_file("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/apa7tec/src/01.md");
+    create_file(&new_path, "src/01.md", first.as_str());
+
+    // Download the Makefile 
+    // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/apa7tec/Makefile 
+    let makefile = get_file("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/apa7tec/Makefile"); 
+    create_file(&new_path, "Makefile", makefile.as_str()); 
+
+    // Make a new directory called build 
+    create_folder(&new_path, "build"); 
+
+    // Ask the user if he wants to initialize a git repository
+    let git = read_stdin("Do you want to initialize a git repository? (Y/n)".to_string()).trim().to_string(); 
+
+    // Ask the user if he wants to create a README.md file 
+    let readme = read_stdin("Do you want to create a README.md file? (Y/n)".to_string()).trim().to_string(); 
+
+    // Use an array to store the git answers 
+    let answers = ["y", "Y", "yes", "Yes", "YES", ""]; 
+
+    // Check if the user wants to create a README.md file 
+    if answers.contains(&readme.as_str()) {
+        // Create a README.md file 
+        // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/apa7tec/README.md 
+        let readme = get_file("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/apa7tec/README.md"); 
+        create_file(&new_path, "README.md", readme.as_str()); 
+    }
+
+    // Check if the user wants to initialize a git repository 
+    if answers.contains(&git.as_str()) {
+        // Create a .gitignore file 
+        // Download the .gitignore file from the repo 
+        // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/apa7tec/.gitignore 
+        let gitignore = get_file("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/apa7tec/.gitignore"); 
+        create_file(&new_path, ".gitignore", gitignore.as_str()); 
+
+        // Initialize a new git repository 
+        init_git(&new_path); 
+    }
+
+    // Create images folder 
+    create_folder(&new_path, "images");
+
+    // Download the logo 
+    // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/apa7tec/images/logo.png
+    get_image("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/apa7tec/images/logo.png", &format!("{}/images", new_path), "logo.png");
+
+    println!("\x1b[34mCreated the new folder at {}\x1b[0m", new_path); 
+
+    // Use tree -C to print the new folder structure with colors 
+    let output = std::process::Command::new("tree")
+        .arg("-C")
+        .arg(&new_path)
+        .output()
+        .expect("Failed to execute command");
+
+    // Print the new folder structure 
+    println!("{}", String::from_utf8_lossy(&output.stdout)); 
 }
