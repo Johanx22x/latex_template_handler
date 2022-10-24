@@ -218,6 +218,13 @@ pub fn apa7tec(path: &str) {
     let makefile = get_file("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/apa7tec/Makefile"); 
     create_file(&new_path, "Makefile", makefile.as_str()); 
 
+    // Create images folder 
+    create_folder(&new_path, "images");
+
+    // Download the logo 
+    // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/apa7tec/images/logo.png
+    get_image("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/apa7tec/images/logo.png", &format!("{}/images", new_path), "logo.png");
+
     // Make a new directory called build 
     create_folder(&new_path, "build"); 
 
@@ -249,13 +256,6 @@ pub fn apa7tec(path: &str) {
         // Initialize a new git repository 
         init_git(&new_path); 
     }
-
-    // Create images folder 
-    create_folder(&new_path, "images");
-
-    // Download the logo 
-    // https://raw.githubusercontent.com/Johanx22x/latex-templates/main/apa7tec/images/logo.png
-    get_image("https://raw.githubusercontent.com/Johanx22x/latex-templates/main/apa7tec/images/logo.png", &format!("{}/images", new_path), "logo.png");
 
     println!("\x1b[34mCreated the new folder at {}\x1b[0m", new_path); 
 
